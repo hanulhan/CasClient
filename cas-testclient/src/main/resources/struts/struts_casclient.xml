@@ -1,0 +1,31 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: uhansen -->
+<struts>
+    <!--    <constant  name="struts.custom.i18n.resources" value="i18n/statistics" />-->
+
+    <package name="public" namespace="/public" extends="default">
+
+        <action name="doLoginCasUser" class="publicActionClass" method="doLoginCasUser">	
+<!--            <result name="gpns_dashboard" type="redirectAction">
+                <param name="actionName">accessDashBoard</param>
+                <param name="namespace">/gpns</param>
+            </result>-->
+            <result name="success" type="redirectAction">
+                <param name="actionName">doShowWelcome</param>
+                <param name="namespace">/session</param>
+            </result>
+            <result name="error">/public/login_error.jsp</result>     
+        </action>
+    
+        <action name="doLogout" class="publicActionClass" method="doLogout">	
+            <result name="LOGOUT_FROM_CAS" type="redirect">${casServer}/logout</result>
+            <result name="success">/public/logout.jsp</result>     
+    
+        </action>		
+    
+    </package>	
+</struts>
+

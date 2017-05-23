@@ -11,19 +11,58 @@
         server, either via the CAS 1.0 or CAS 2.0 protocol.
     </description>
 
-    <scm>
-        <connection>scm:git:git@github.com:Jasig/java-cas-client.git</connection>
-        <developerConnection>scm:git:git@github.com:Jasig/java-cas-client.git</developerConnection>
-        <url>https://github.com/Jasig/java-cas-client</url>
-      <tag>cas-client-3.4.1</tag>
-  </scm>
-
+    <modules>
+        <module>cas-testclient</module>
+    </modules>
 
     <properties>
-        <spring.version>3.1.3.RELEASE</spring.version>
-        <ehcache.version>2.2.0</ehcache.version>
-        <clover.version>3.0.2</clover.version>
-        <slf4j.version>1.7.1</slf4j.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+
+        <!-- Spring -->
+        <!--        <version.org.springframework>3.0.5.RELEASE</version.org.springframework>-->
+        <version.org.springframework>3.1.3.RELEASE</version.org.springframework>
+        
+        <!-- Java EE -->
+        <version.javaee-api>6.0</version.javaee-api>
+
+        <!-- Jasig cas client -->
+        <version.jasig.cas.client>3.4.1</version.jasig.cas.client>
+        <version.open.saml>1.1</version.open.saml>
+                
+        
+        <!-- JACKSON -->
+        <version.jackson>2.2.3</version.jackson>
+
+        <!-- Struts -->
+        <version.org.apache.struts>2.3.16.3</version.org.apache.struts>
+
+        <!-- AcitiveMQ, jms -->
+        <version.org.apache.activemq>5.7.0</version.org.apache.activemq>
+        <version.org.apache.geronimo.specs>1.1.1</version.org.apache.geronimo.specs>
+        
+        <!-- CloudServices  -->
+        <version.com.acentic.cloudservices>1.1.62</version.com.acentic.cloudservices>
+        
+        <!-- Jersey -->
+        <version.com.sun.jersey>1.9.1</version.com.sun.jersey>
+        
+        <!-- Logging -->
+        <version.log4j>1.2.16</version.log4j>
+        <version.org.slf4j>1.6.1</version.org.slf4j>
+    
+        <version.opensymphony.sitemesh>2.4.2</version.opensymphony.sitemesh>
+    
+        <!-- Misc -->
+        <version.com.rome>1.0</version.com.rome>
+
+        
+        <!--        <ehcache.version>2.2.0</ehcache.version>-->
+        <!--        <clover.version>3.0.2</clover.version>-->
+        <!--        <slf4j.version>1.7.1</slf4j.version>-->
     </properties>
 
 
@@ -74,191 +113,277 @@
         </profile>
     </profiles>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2-beta-1</version>
-                <configuration>
-                    <descriptors>
-                        <descriptor>${basedir}/assembly.xml</descriptor>
-                    </descriptors>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <includes>
-                        <include>**/*Tests*</include>
-                    </includes>
-                    <useUnlimitedThreads>false</useUnlimitedThreads>
-                    <threadCount>1</threadCount>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.0</version>
-                <executions>
-                    <execution>
-                        <id>enforce-banned-dependencies</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <bannedDependencies>
-                                    <excludes>
-                                        <exclude>commons-logging</exclude>
-                                    </excludes>
-                                </bannedDependencies>
-                            </rules>
-                            <fail>true</fail>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-<!--            <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <configuration>
-                    <header>src/licensing/header.txt</header>
-                    <skipExistingHeaders>true</skipExistingHeaders>
-                    <headerDefinitions>
-                        <headerDefinition>src/licensing/header-definitions.xml</headerDefinition>
-                    </headerDefinitions>
-                    <aggregate>true</aggregate>
-                    <excludes>
-                        <exclude>**/.idea/**</exclude>
-                        <exclude>LICENSE</exclude>
-                        <exclude>**/INSTALL*</exclude>
-                        <exclude>**/NOTICE*</exclude>
-                        <exclude>**/README*</exclude>
-                        <exclude>**/readme*</exclude>
-                        <exclude>**/*.log</exclude>
-                        <exclude>**/*.license</exclude>
-                        <exclude>**/*.txt</exclude>
-                        <exclude>**/*.crt</exclude>
-                        <exclude>**/*.crl</exclude>
-                        <exclude>**/*.key</exclude>
-                        <exclude>**/.gitignore</exclude>
-                        <exclude>**/overlays/**</exclude>
-                        <exclude>src/licensing/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>-->
-        </plugins>
-    </build>
-
     <dependencyManagement>
         <dependencies>
+            
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${version.javaee-api}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-web-api</artifactId>
+                <version>${version.javaee-api}</version>
+            </dependency>
+
+            <!-- JASIG-CAS -->
+            <dependency>
+                <groupId>org.jasig.cas.client</groupId>
+                <artifactId>jasig-cas-client-core</artifactId>
+                <version>${version.jasig.cas.client}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.opensaml</groupId>
+                <artifactId>opensaml</artifactId>
+                <version>${version.open.saml}</version>
+            </dependency>
+                        
+                                                
+            <!-- SPRING -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
-                <version>${spring.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>commons-logging</artifactId>
-                        <groupId>commons-logging</groupId>
-                    </exclusion>
-                </exclusions>
+                <type>jar</type>
+                <version>${version.org.springframework}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>${spring.version}</version>
+                <version>${version.org.springframework}</version>
             </dependency>
-
+            
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <type>jar</type>
+                <version>${version.org.springframework}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <type>jar</type>
+                <!--                <scope>compile</scope>-->
+                <version>${version.org.springframework}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
-                <version>${spring.version}</version>
+                <version>${version.org.springframework}</version> 
                 <scope>test</scope>
             </dependency>
 
-<!--            <dependency>
+            <dependency>
+                <groupId>org.apache.xbean</groupId>
+                <artifactId>xbean-spring</artifactId>
+                <version>3.4.3</version>
+            </dependency>
+
+            <!-- STRUTS -->
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-spring-plugin</artifactId>
+                <version>${version.org.apache.struts}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-core</artifactId>
+                <version>${version.org.apache.struts}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-json-plugin</artifactId>
+                <version>${version.org.apache.struts}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-junit-plugin</artifactId>
+                <version>${version.org.apache.struts}</version>
+            </dependency>
+
+            <!-- Jersey -->
+            <dependency>
+                <groupId>rome</groupId>
+                <artifactId>rome</artifactId>
+                <version>${version.com.rome}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.jersey.contribs</groupId>
+                <artifactId>jersey-spring</artifactId>
+                <version>${version.com.sun.jersey}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.jersey.contribs</groupId>
+                <artifactId>jersey-multipart</artifactId>
+                <version>${version.com.sun.jersey}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.jersey</groupId>
+                <artifactId>jersey-json</artifactId>
+                <version>${version.com.sun.jersey}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.jersey</groupId>
+                <artifactId>jersey-client</artifactId>
+                <version>${version.com.sun.jersey}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.jersey</groupId>
+                <artifactId>jersey-test-framework</artifactId>
+                <version>${version.com.sun.jersey}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>opensymphony</groupId>
+                <artifactId>sitemesh</artifactId>
+                <version>${version.opensymphony.sitemesh}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>1.3</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.3</version>
+            </dependency>
+
+
+            <!-- JMS    -->
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-jms_1.1_spec</artifactId>
+                <version>${version.org.apache.geronimo.specs}</version>
+            </dependency>
+        
+            <dependency>
+                <groupId>com.sun.messaging.mq</groupId>
+                <artifactId>imq</artifactId>
+                <version>4.6-b01</version>
+            </dependency>
+
+            <!-- ACTIVE-MQ  -->
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-core</artifactId>
+                <version>${version.org.apache.activemq}</version>
+            </dependency>
+
+            <!-- LOGGING  -->
+            <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
-                <version>1.2.15</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>jmxri</artifactId>
-                        <groupId>com.sun.jmx</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sun.jdmk</groupId>
-                        <artifactId>jmxtools</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>javax.jms</groupId>
-                        <artifactId>jms</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>-->
+                <version>${version.log4j}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${version.org.slf4j}</version>
+            </dependency>
+            
+            
+            <!-- INTERNAL -->
+            <dependency>
+                <groupId>hanulhan.cas.client</groupId>
+                <artifactId>cas-testclient</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+
+
+            <!-- CLOUD SERVICES -->           
+            <dependency>
+                <groupId>com.acentic.cloudservices</groupId>
+                <artifactId>webutil</artifactId>
+                <version>${version.com.acentic.cloudservices}</version>
+                <type>war</type>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-            <scope>test</scope>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-<!--            <scope>test</scope>-->
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-<!--            <artifactId>slf4j-simple</artifactId>-->
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-<!--            <scope>test</scope>-->
-        </dependency>
-    </dependencies>
 
-    <modules>
-        <module>cas-testclient</module>
-    </modules>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+
+    </dependencies>
+	
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>${basedir}/target/dependency</directory>
+            </resource>
+
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.2.1</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.3</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                        <debug>true</debug>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
 </project>
