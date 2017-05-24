@@ -11,7 +11,7 @@
 	</appender>
 	
     <logger name="org.jasig">
-        <level value="DEBUG" />
+        <level value="TRACE" />
     </logger>
  	
 	<root>

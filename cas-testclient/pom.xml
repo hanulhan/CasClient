@@ -3,7 +3,7 @@
     
     <parent>
         <groupId>hanulhan.cas.client</groupId>
-        <artifactId>cas-client</artifactId>
+        <artifactId>cas-client-master</artifactId>
         <version>3.4.1</version>
     </parent>
     
@@ -44,10 +44,10 @@
             <artifactId>jasig-cas-client-core</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>opensaml</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -79,10 +79,10 @@
             <artifactId>struts2-json-plugin</artifactId>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>sitemesh</artifactId>
-        </dependency>            
+        </dependency>            -->
 
         <!-- Internal   -->
 

@@ -24,16 +24,12 @@ import org.apache.struts2.interceptor.SessionAware;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
 public class CasPublicActions extends ActionSupport implements SessionAware, ApplicationContextAware {
 //public class CasPublicActions extends ActionSupport implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
     private static final Logger LOGGER = Logger.getLogger(CasPublicActions.class);
     private Map<String, Object> session;
-    
 
     public String doLoginCasUser() {
         LOGGER.log(Level.TRACE, "do login cas user");
@@ -43,25 +39,28 @@ public class CasPublicActions extends ActionSupport implements SessionAware, App
             HttpServletRequest request;
             request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
             AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
-            @SuppressWarnings("rawtypes")
-            Map attributes = principal.getAttributes();
-            String uid = (String) attributes.get("uid");
-            Long lUid = Long.valueOf(uid);
-//            systemUser = (SystemUserBean) applicationContext.getBean(SpringUserBeansDef.SystemUserBean, lUid);
-//            if (!systemUser.isLoaded()) {
-//                LOGGER.log(Level.ERROR, "unable to login cas user with id " + lUid);
-//                internalDoLogout();
-//                return ERROR;
-//            }
 
-            LOGGER.log(Level.DEBUG, "request with local=" + request.getLocale().toString());
+            if (principal != null) {
+                @SuppressWarnings("rawtypes")
+                Map attributes = principal.getAttributes();
+                String uid = (String) attributes.get("uid");
+                Long lUid = Long.valueOf(uid);
+                //            systemUser = (SystemUserBean) applicationContext.getBean(SpringUserBeansDef.SystemUserBean, lUid);
+                //            if (!systemUser.isLoaded()) {
+                //                LOGGER.log(Level.ERROR, "unable to login cas user with id " + lUid);
+                //                internalDoLogout();
+                //                return ERROR;
+                //            }
+
+                LOGGER.log(Level.DEBUG, "request with local=" + request.getLocale().toString());
+            } else {
+                LOGGER.log(Level.ERROR, "principal is null");
+            }
         } catch (NumberFormatException e) {
             LOGGER.log(Level.ERROR, "unable to login cas user", e);
 //            internalDoLogout();
             return ERROR;
         }
-
-
 
 //        if ((locale != null) && (locale.isEmpty())) {
 //            LOGGER.log(Level.DEBUG, "locale parameter detected, setting locale to " + locale);
@@ -71,10 +70,8 @@ public class CasPublicActions extends ActionSupport implements SessionAware, App
 //            HttpSession session = request.getSession(true);
 //            session.setAttribute(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, newlocale);
 //        }
-
         return SUCCESS;
     }
-
 
     public String doLogout() {
         LOGGER.log(Level.TRACE, "do logout user");
@@ -89,7 +86,6 @@ public class CasPublicActions extends ActionSupport implements SessionAware, App
         return SUCCESS;
     }
 
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
@@ -97,9 +93,7 @@ public class CasPublicActions extends ActionSupport implements SessionAware, App
 
     @Override
     public void setSession(Map<String, Object> session) {
-        this.session= session;
+        this.session = session;
     }
 
-
-    
 }

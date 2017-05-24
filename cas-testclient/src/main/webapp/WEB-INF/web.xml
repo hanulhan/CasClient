@@ -25,6 +25,10 @@
         <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
     </listener>-->
                         
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
 
     <!-- 
     #################################################################################################
@@ -104,7 +108,7 @@
     </filter-mapping> 
     <filter-mapping> 
         <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name> 
-        <url-pattern>/*</url-pattern> 
+        <url-pattern>/auth/*</url-pattern> 
     </filter-mapping>
 
 
@@ -124,8 +128,4 @@
     </filter-mapping>
 
 
-
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
 </web-app>
