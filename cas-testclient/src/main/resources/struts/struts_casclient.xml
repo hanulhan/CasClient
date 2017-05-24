@@ -8,20 +8,24 @@
 
     <package name="public" namespace="/public" extends="default">
 
-        <action name="doLoginCasUser" class="publicActionClass" method="doLoginCasUser">	
-<!--            <result name="gpns_dashboard" type="redirectAction">
+        <action name="doLoginCasUser" class="bean_CasPublicActions" method="doLoginCasUser">	
+            <!--            <result name="gpns_dashboard" type="redirectAction">
                 <param name="actionName">accessDashBoard</param>
                 <param name="namespace">/gpns</param>
             </result>-->
-            <result name="success" type="redirectAction">
+<!--            <result name="success" type="redirectAction">
                 <param name="actionName">doShowWelcome</param>
-                <param name="namespace">/session</param>
+                <param name="namespace">/public</param>
+            </result>-->
+            <result name="success" type="json">
+                <param name="ignoreHierarchy">false</param>
+                <param name="includeProperties">jsonStatus.*,sessions.*</param>
             </result>
             <result name="error">/public/login_error.jsp</result>     
         </action>
     
-        <action name="doLogout" class="publicActionClass" method="doLogout">	
-            <result name="LOGOUT_FROM_CAS" type="redirect">${casServer}/logout</result>
+        <action name="doLogout" class="bean_CasPublicActions" method="doLogout">	
+<!--            <result name="LOGOUT_FROM_CAS" type="redirect">${casServer}/logout</result>-->
             <result name="success">/public/logout.jsp</result>     
     
         </action>		

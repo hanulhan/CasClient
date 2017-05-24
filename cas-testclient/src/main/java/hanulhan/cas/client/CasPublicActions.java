@@ -5,17 +5,19 @@
  */
 package hanulhan.cas.client;
 
-import com.opensymphony.xwork2.ActionSupport;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.struts2.interceptor.SessionAware;
 import org.jasig.cas.client.authentication.AttributePrincipal;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import static com.opensymphony.xwork2.Action.SUCCESS;
+import org.apache.struts2.ServletActionContext;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.SessionAware;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,7 +32,7 @@ public class CasPublicActions extends ActionSupport implements SessionAware, App
 
     private ApplicationContext applicationContext;
     private static final Logger LOGGER = Logger.getLogger(CasPublicActions.class);
-    
+    private Map<String, Object> session;
     
 
     public String doLoginCasUser() {
@@ -38,7 +40,8 @@ public class CasPublicActions extends ActionSupport implements SessionAware, App
 
 //        SystemUserBean systemUser = null;
         try {
-            HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+            HttpServletRequest request;
+            request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
             AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
             @SuppressWarnings("rawtypes")
             Map attributes = principal.getAttributes();
@@ -52,7 +55,7 @@ public class CasPublicActions extends ActionSupport implements SessionAware, App
 //            }
 
             LOGGER.log(Level.DEBUG, "request with local=" + request.getLocale().toString());
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             LOGGER.log(Level.ERROR, "unable to login cas user", e);
 //            internalDoLogout();
             return ERROR;
@@ -94,7 +97,7 @@ public class CasPublicActions extends ActionSupport implements SessionAware, App
 
     @Override
     public void setSession(Map<String, Object> session) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.session= session;
     }
 
 

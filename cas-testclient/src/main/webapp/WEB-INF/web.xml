@@ -4,13 +4,38 @@
  
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
-    
-    <!--    <filter> 
+
+    <!-- 
+    #################################################################################################
+    #                                 LISTENER                                                      #
+    ################################################################################################# -->
+
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>com.acentic.cloudservices.webutil.AppContextListener</listener-class>
+    </listener>
+
+    <!--    <listener>
+        <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+    </listener>-->
+                        
+
+    <!-- 
+    #################################################################################################
+    #                                 FILTER                                                        #
+    ################################################################################################# -->                
+    <!--        <filter> 
         <filter-name>CAS Single Sign Out Filter</filter-name>
         <filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
         <init-param> 
             <param-name>casServerUrlPrefix</param-name>
-            <param-value>https://${oauth.server}/${oauth.context}</param-value>
+            <param-value>${oauth.server}/${oauth.context}</param-value>
         </init-param> 
     </filter> -->
     
@@ -23,7 +48,7 @@
         </init-param>
         <init-param> 
             <param-name>service</param-name> 
-            <param-value>${oauth.client}/${oauth.client.context}/auth/user.jsp</param-value>
+            <param-value>${oauth.client}/${oauth.client.context}/public/doLoginCasUser.action</param-value>
         </init-param> 
         <init-param>
             <param-name>ignorePattern</param-name>
@@ -50,6 +75,25 @@
     </filter> 
   
   
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>struts-default.xml,struts-plugin.xml,struts/struts.xml</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>requestContextFilter</filter-name>
+        <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+    </filter>  
+  
+  
+    <!-- 
+    #################################################################################################
+    #                                 FILTER-MAPPING                                                #
+    ################################################################################################# -->
     <filter-mapping> 
         <filter-name>CAS Authentication Filter</filter-name> 
         <url-pattern>/auth/*</url-pattern> 
@@ -60,17 +104,28 @@
     </filter-mapping> 
     <filter-mapping> 
         <filter-name>CAS HttpServletRequest Wrapper Filter</filter-name> 
-        <url-pattern>/auth/*</url-pattern> 
+        <url-pattern>/*</url-pattern> 
     </filter-mapping>
-    
-<!--        <filter-mapping>
+
+
+    <!--        <filter-mapping>
         <filter-name>CAS Single Sign Out Filter</filter-name>
         <url-pattern>/auth/*</url-pattern>
     </filter-mapping>-->
+    
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>    
+
+    <filter-mapping>
+        <filter-name>requestContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 
-    <listener>
-        <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
-    </listener>
 
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
