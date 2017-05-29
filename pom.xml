@@ -99,6 +99,9 @@
         </profile>
         <profile>
             <id>cas.acentic.com</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <oauth.server>https://cas.acentic.com</oauth.server>
                 <oauth.server.context>CasServer</oauth.server.context>
@@ -145,9 +148,9 @@
             <!-- JASIG-CAS -->
             <dependency>
                 <groupId>org.jasig.cas.client</groupId>
-                <artifactId>jasig-cas-client-core</artifactId>
+                <artifactId>cas-client-core</artifactId>
+<!--                <artifactId>jasig-cas-client-core</artifactId>-->
                 <version>${version.jasig.cas.client}</version>
-                <scope>compile</scope>
             </dependency>
             <!--            <dependency>
                 <groupId>org.opensaml</groupId>
