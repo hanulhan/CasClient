@@ -20,7 +20,7 @@
             </result>
             -->
             <result name="success">
-                /auth/user.jsp
+                /session/user.jsp
             </result>
             <!--
             <result name="success" type="json">

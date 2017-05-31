@@ -5,7 +5,7 @@
     <artifactId>cas-client-master</artifactId>
     <packaging>pom</packaging>
 
-    <name>Ulis CAS-Client for Java</name>
+    <name>CAS-TestClient for Java</name>
     <description>
         Jasig CAS Client for Java is the integration point for applications that want to speak with a CAS
         server, either via the CAS 1.0 or CAS 2.0 protocol.
@@ -77,23 +77,21 @@
         <profile>
             <id>local</id>
             <properties>
-                <oauth.server>localhost:8443</oauth.server>
+                <cas.server>localhost:8443/CasServer</cas.server>
                 <oauth.client>localhost:8443</oauth.client>
             </properties>
         </profile>
         <profile>
             <id>remote-alex</id>
             <properties>
-                <oauth.server>ew-alex-01:8443</oauth.server>
-                <oauth.context>CasServer</oauth.context>
+                <cas.server>ew-alex-01:8443/CasServer</cas.server>
                 <oauth.client>localhost:8443</oauth.client>
             </properties>
         </profile>
         <profile>
             <id>remote-uli</id>
             <properties>
-                <oauth.server>de-ws-16:8443</oauth.server>
-                <oauth.context>CasServer</oauth.context>
+                <cas.server>de-ws-16:8443/CasServer</cas.server>
                 <oauth.client>localhost:8443</oauth.client>
             </properties>
         </profile>
@@ -103,16 +101,14 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <oauth.server>https://cas.acentic.com</oauth.server>
-                <oauth.server.context>CasServer</oauth.server.context>
-                <oauth.client>https://localhost:28443</oauth.client>
+                <cas.server>https://cas.acentic.com/CasServer</cas.server>
+                <oauth.client>https://localhost:18443</oauth.client>
             </properties>
         </profile>
         <profile>
             <id>Hobbit</id>
             <properties>
-                <oauth.server>hobbit:8443</oauth.server>
-                <oauth.context>CasServer</oauth.context>
+                <cas.server>hobbit:8443/CasServer</cas.server>
                 <oauth.client>DE-WS-16:8443</oauth.client>
             </properties>
         </profile>

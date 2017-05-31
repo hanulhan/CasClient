@@ -10,13 +10,13 @@
 
 <ul>
   <li> 
-    <a href="auth/hello.jsp">login</a>
+    <a href="../session/hello.jsp">login</a>
     </li>
   <li> 
-    <a href="auth/hello.jsp">test seite mit cas gesichert</a>
+    <a href="../session/hello.jsp">test seite mit cas gesichert</a>
     </li>
   <li> 
-    <a href="auth/logout.jsp">logout</a>
+    <a href="../session/logout.jsp">logout</a>
     </li>
 </ul>
 
