@@ -13,6 +13,7 @@
 
     <modules>
         <module>cas-testclient</module>
+        <module>cas-JspRESTclient</module>
     </modules>
 
     <properties>
@@ -145,7 +146,7 @@
             <dependency>
                 <groupId>org.jasig.cas.client</groupId>
                 <artifactId>cas-client-core</artifactId>
-<!--                <artifactId>jasig-cas-client-core</artifactId>-->
+                <!--                <artifactId>jasig-cas-client-core</artifactId>-->
                 <version>${version.jasig.cas.client}</version>
             </dependency>
             <!--            <dependency>
