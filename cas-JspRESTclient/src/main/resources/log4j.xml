@@ -15,7 +15,7 @@
     </logger>
  	
     <root>
-        <level value="info" />
+        <level value="DEBUG" />
         <appender-ref ref="console" />
     </root>
 

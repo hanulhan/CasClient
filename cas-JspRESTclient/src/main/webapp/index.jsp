@@ -26,10 +26,10 @@
                     <div class="x_title">
                         <ul>
                             <li> 
-                                <li><a id="btn_login"><i class="fa fa-plus"></i> Login</a></li>
+                            <li><a id="btn_login"><i class="fa fa-plus"></i> Login</a></li>
                             </li>
                             <li> 
-                                <a href="cas/login.jsp">test seite mit cas gesichert</a>
+                                <a href="public/doLoginCasRest.action">test seite mit cas gesichert</a>
                             </li>
                             <li> 
                                 <a href="cas/logout.jsp/logout.jsp">logout</a>
@@ -55,7 +55,34 @@
                 <script>
 
                     function doLogin() {
+                        $.ajax({
+                            url: "public/doLoginCasRest.action",
+                            type: "POST",
+                            dataType: 'json',
+                            contentType: "application/x-www-form-urlencoded",
+                            data: "",
+//                            headers: {
+//                                "Access-Control-Allow-Origin: ": "*",
+//                                "Access-Control-Allow-Methods: ": "POST",
+//                                "Access-Control-Allow-Headers: ": "Authorization",
+//                            },
+                            success: function (html) {
+                                if ((html == null) || (html.jsonStatus == null) || (html.serviceUrl == null) || (html.jsonStatus.status != "OK")) {
+                                    alert("ERRROR");
+                                    return;
+                                } else if (html.serviceUrl.length > 0) {
+                                    window.location.href=html.serviceUrl;
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert("Error");
+                                return;
+                            }
 
+
+
+
+                        });
                     }
                 </script>
 

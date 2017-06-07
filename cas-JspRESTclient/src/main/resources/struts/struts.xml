@@ -46,6 +46,6 @@
         
     </package>
     
-    <include file="struts/struts_casclient.xml"/>
+    <include file="struts/struts_casrest.xml"/>
             
 </struts>

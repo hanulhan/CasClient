@@ -61,7 +61,7 @@
             <artifactId>struts2-json-plugin</artifactId>
         </dependency>
 
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>sitemesh</artifactId>
         </dependency>            -->
@@ -73,6 +73,21 @@
             <artifactId>webutil</artifactId>
             <type>war</type>
         </dependency>
+
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.acentic.cloudservices</groupId>
+            <artifactId>util</artifactId>
+        </dependency>
+
 
     </dependencies>
     <build>

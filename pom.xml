@@ -140,7 +140,19 @@
             </dependency>
             
 
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>1.7.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.3</version>
+            </dependency>
+
             
+                                    
 
             <!-- JASIG-CAS -->
             <dependency>
@@ -319,6 +331,12 @@
                 <artifactId>webutil</artifactId>
                 <version>${version.com.acentic.cloudservices}</version>
                 <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>com.acentic.cloudservices</groupId>
+                <artifactId>util</artifactId>
+                <version>${version.com.acentic.cloudservices}</version>
+                <type>jar</type>
             </dependency>
 
             <dependency>

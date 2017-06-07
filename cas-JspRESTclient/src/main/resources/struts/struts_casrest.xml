@@ -8,7 +8,7 @@
 
     <package name="public" namespace="/public" extends="default">
 
-        <action name="doLoginCasUser" class="bean_CasPublicActions" method="doLoginCasUser">	
+        <action name="doLoginCasRest" class="bean_CasRestActions" method="doLoginCasRest">	
             <!--            <result name="gpns_dashboard" type="redirectAction">
                 <param name="actionName">accessDashBoard</param>
                 <param name="namespace">/gpns</param>
@@ -19,9 +19,10 @@
                 <param name="namespace">/public</param>
             </result>
             -->
-            <result name="success">
-                /session/user.jsp
-            </result>
+            <result name="success" type="json">
+       		<param name="ignoreHierarchy">false</param>
+                <param name="includeProperties">jsonStatus.*,serviceUrl.*</param>
+            </result>     
             <!--
             <result name="success" type="json">
                 <param name="ignoreHierarchy">false</param>
