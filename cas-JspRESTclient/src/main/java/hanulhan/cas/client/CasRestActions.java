@@ -44,10 +44,14 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
     private static final Logger LOGGER = Logger.getLogger(CasRestActions.class);
     private Map<String, Object> session;
 
-    private final static String CAS_LOGIN_URL = "https://cas.acentic.com/CasServer/v1/tickets";
+//    private final static String CAS_LOGIN_URL = "https://cas.acentic.com/CasServer/v1/tickets";
+    private final static String CAS_LOGIN_URL = "https://dev-cas-server:443/CasServer/v1/tickets";
+
 //    private final static String GET_URL = "https://acs.acentic.com/CloudServices";
-    private final static String GET_URL = "https://acs.acentic.com/CloudServices/public/doLoginCasUser.action";
-    
+//    private final static String GET_URL = "https://acs.acentic.com/CloudServices/public/doLoginCasUser.action";
+    private final static String GET_URL = "https://de-ws-16:18443/session-web/public/doLoginCasUserManual.action";
+//    private final static String GET_URL = "https://de-ws-16:18443/CloudServices";
+//    
     private final String USER_AGENT = "Mozilla/5.0";
 
     private String cookies;
@@ -108,7 +112,7 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
                 if (myResponse.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) {
                     myServiceTicket = getHttpResponseResult(myResponse).toString();
                     LOGGER.log(Level.INFO, "ServiceTicket: " + myServiceTicket);
-                    serviceUrl= GET_URL + "?" + myServiceTicket;
+                    serviceUrl= GET_URL + "?serviceTicket=" + myServiceTicket;
                     LOGGER.log(Level.INFO, "ServiceURL: " + serviceUrl);
                 }
             }
@@ -180,7 +184,7 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
 
     public String getServiceTicketUrl(String aString) {
         Matcher myMatcher;
-        Pattern myPattern= Pattern.compile("https[a-zA-Z0-9\\/:\\-\\.]*TGT-[0-9]+-[a-zA-Z0-9]*-[a-z\\.]*");
+        Pattern myPattern= Pattern.compile("https[a-zA-Z0-9\\/:\\-\\.]*TGT-[0-9]+-[a-zA-Z0-9]*-[a-z\\.\\-]*");
         myMatcher = myPattern.matcher(aString);
 
         if (myMatcher.find()) {
@@ -194,7 +198,7 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
     public String getTGT(String aString) {
         Matcher myMatcher;
         Pattern myPattern;
-        myPattern = Pattern.compile("TGT-[0-9]*-[a-zA-Z0-9]*[a-z\\,\\.]");
+        myPattern = Pattern.compile("TGT-[0-9]*-[a-zA-Z0-9]*[a-z\\,\\.\\-]");
         myMatcher = myPattern.matcher(aString);
 
         if (myMatcher.find()) {
