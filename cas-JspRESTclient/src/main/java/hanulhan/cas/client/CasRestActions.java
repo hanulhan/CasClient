@@ -49,6 +49,7 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
 
 //    private final static String GET_URL = "https://acs.acentic.com/CloudServices";
 //    private final static String GET_URL = "https://acs.acentic.com/CloudServices/public/doLoginCasUser.action";
+    private final static String CAS_SERVICE = "https://de-ws-16:18443/session-web/public/doLoginCasUser.action";
     private final static String GET_URL = "https://de-ws-16:18443/session-web/public/doLoginCasUserManual.action";
 //    private final static String GET_URL = "https://de-ws-16:18443/CloudServices";
 //    
@@ -107,12 +108,12 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
         // Get the ServiceTicket
         try {
             if (myTgt != null && myTgt.length() > 0) {
-                postParams.add(new BasicNameValuePair("service", GET_URL));
+                postParams.add(new BasicNameValuePair("service", CAS_SERVICE));
                 myResponse = sendPost(myServiceTicketUrl, postParams);
                 if (myResponse.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) {
                     myServiceTicket = getHttpResponseResult(myResponse).toString();
                     LOGGER.log(Level.INFO, "ServiceTicket: " + myServiceTicket);
-                    serviceUrl= GET_URL + "?serviceTicket=" + myServiceTicket;
+                    serviceUrl= GET_URL + "?authServiceTicket=" + myServiceTicket + "&authService=" + CAS_SERVICE;
                     LOGGER.log(Level.INFO, "ServiceURL: " + serviceUrl);
                 }
             }
