@@ -49,8 +49,8 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
 
 //    private final static String GET_URL = "https://acs.acentic.com/CloudServices";
 //    private final static String GET_URL = "https://acs.acentic.com/CloudServices/public/doLoginCasUser.action";
-    private final static String CAS_SERVICE = "https://de-ws-16:18443/session-web/public/doLoginCasUser.action";
-    private final static String GET_URL = "https://de-ws-16:18443/session-web/public/doLoginCasUserManual.action";
+    private final static String CAS_SERVICE = "https://de-ws-16:18443/CloudServices/gpns/doAccessSLATyps";
+    private final static String GET_URL = "https://de-ws-16:18443/CloudServices/public/doLoginCasUserManual.action";
 //    private final static String GET_URL = "https://de-ws-16:18443/CloudServices";
 //    
     private final String USER_AGENT = "Mozilla/5.0";
