@@ -44,12 +44,14 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
     private static final Logger LOGGER = Logger.getLogger(CasRestActions.class);
     private Map<String, Object> session;
 
-//    private final static String CAS_LOGIN_URL = "https://cas.acentic.com/CasServer/v1/tickets";
-    private final static String CAS_LOGIN_URL = "https://dev-cas-server:443/CasServer/v1/tickets";
+//    private final static String CAS_SERVER_URL = "https://cas.acentic.com/CasServer";
+    private final static String CAS_SERVER_URL = "https://dev-cas-server:443/CasServer";
 
 //    private final static String GET_URL = "https://acs.acentic.com/CloudServices";
 //    private final static String GET_URL = "https://acs.acentic.com/CloudServices/public/doLoginCasUser.action";
-    private final static String CAS_SERVICE = "https://de-ws-16:18443/CloudServices/gpns/doAccessSLATyps";
+    //private final static String CAS_SERVICE = "https://de-ws-16:18443/CloudServices/gpns/doAccessSLATyps";
+    private final static String CAS_SERVICE = "https://de-ws-16:18443/CloudServices/gpns/getCircuitTyps.action";
+
     private final static String GET_URL = "https://de-ws-16:18443/CloudServices/public/doLoginCasUserManual.action";
 //    private final static String GET_URL = "https://de-ws-16:18443/CloudServices";
 //    
@@ -59,8 +61,8 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
     private HttpClient client = HttpClientBuilder.create().build();
     private JsonStatus jsonStatus = new JsonStatus();
 
-    String serviceUrl="";
-    
+    String redirectUrl = "";
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
@@ -85,7 +87,7 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
 
         // GET the TGT
         try {
-            myResponse = sendPost(CAS_LOGIN_URL + "?" + myUrlParameters, postParams);
+            myResponse = sendPost(CAS_SERVER_URL + "/v1/tickets?" + myUrlParameters, postParams);
             if (myResponse.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_CREATED) {
                 myResult = getHttpResponseResult(myResponse);
                 if (myResult != null && myResult.length() > 0) {
@@ -113,16 +115,24 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
                 if (myResponse.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) {
                     myServiceTicket = getHttpResponseResult(myResponse).toString();
                     LOGGER.log(Level.INFO, "ServiceTicket: " + myServiceTicket);
-                    serviceUrl= GET_URL + "?authServiceTicket=" + myServiceTicket + "&authService=" + CAS_SERVICE;
-                    LOGGER.log(Level.INFO, "ServiceURL: " + serviceUrl);
+                    redirectUrl = GET_URL + "?authServiceTicket=" + myServiceTicket + "&authService=" + CAS_SERVICE;
+                    LOGGER.log(Level.INFO, "ServiceURL: " + redirectUrl);
                 }
             }
         } catch (Exception ex) {
             LOGGER.log(Level.ERROR, ex);
         }
-        
+
         return SUCCESS;
 
+    }
+
+    public String doLogoutCasUser() {
+
+        jsonStatus = new JsonStatus();
+        CookieHandler.setDefault(new CookieManager());
+        StringBuilder myResult;
+        return SUCCESS;
     }
 
     private HttpResponse sendPost(String url, List<NameValuePair> postParams) {
@@ -130,7 +140,7 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
         HttpPost post = new HttpPost(url);
 
         // add header
-//        post.setHeader("Host", CAS_LOGIN_URL);
+//        post.setHeader("Host", CAS_SERVER_URL);
 //        post.setHeader("User-Agent", USER_AGENT);
 //        post.setHeader("Accept",
 //                "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
@@ -185,7 +195,7 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
 
     public String getServiceTicketUrl(String aString) {
         Matcher myMatcher;
-        Pattern myPattern= Pattern.compile("https[a-zA-Z0-9\\/:\\-\\.]*TGT-[0-9]+-[a-zA-Z0-9]*-[a-z\\.\\-]*");
+        Pattern myPattern = Pattern.compile("https[a-zA-Z0-9\\/:\\-\\.]*TGT-[0-9]+-[a-zA-Z0-9]*-[a-z\\.\\-]*");
         myMatcher = myPattern.matcher(aString);
 
         if (myMatcher.find()) {
@@ -218,13 +228,18 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
         this.cookies = cookies;
     }
 
-    public String getServiceUrl() {
-        return serviceUrl;
+    public String getRedirectUrl() {
+        return redirectUrl;
     }
 
-    public void setServiceUrl(String serviceUrl) {
-        this.serviceUrl = serviceUrl;
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
     }
+
+
+    
+    
+    
 
     public JsonStatus getJsonStatus() {
         return jsonStatus;
@@ -233,8 +248,5 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
     public void setJsonStatus(JsonStatus jsonStatus) {
         this.jsonStatus = jsonStatus;
     }
-    
-    
-    
 
 }

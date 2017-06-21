@@ -9,33 +9,24 @@
     <package name="public" namespace="/public" extends="default">
 
         <action name="doLoginCasRest" class="bean_CasRestActions" method="doLoginCasRest">	
-            <!--            <result name="gpns_dashboard" type="redirectAction">
-                <param name="actionName">accessDashBoard</param>
-                <param name="namespace">/gpns</param>
-            </result>-->
-            <!--
-            <result name="success" type="redirectAction">
-                <param name="actionName">doShowWelcome</param>
-                <param name="namespace">/public</param>
-            </result>
-            -->
+
             <result name="success" type="json">
        		<param name="ignoreHierarchy">false</param>
-                <param name="includeProperties">jsonStatus.*,serviceUrl.*</param>
+                <param name="includeProperties">jsonStatus.*,redirectUrl.*</param>
             </result>     
-            <!--
-            <result name="success" type="json">
-                <param name="ignoreHierarchy">false</param>
-                <param name="includeProperties">jsonStatus.*,sessions.*</param>
-            </result>-->
             <result name="error">
                 /public/login_error.jsp
             </result>     
         </action>
     
         <action name="doLogout" class="bean_CasPublicActions" method="doLogout">	
-<!--            <result name="LOGOUT_FROM_CAS" type="redirect">${casServer}/logout</result>-->
-            <result name="success">/public/logout.jsp</result>     
+            <result name="success" type="json">
+       		<param name="ignoreHierarchy">false</param>
+                <param name="includeProperties">jsonStatus.*,redirectUrl.*</param>
+            </result>     
+            <result name="error">
+                /public/login_error.jsp
+            </result>     
     
         </action>		
     

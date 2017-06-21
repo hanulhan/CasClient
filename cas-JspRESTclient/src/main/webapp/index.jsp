@@ -25,14 +25,15 @@
 
                     <div class="x_title">
                         <ul>
+
+                            <!--                            <li>
+                                                            <a id="btn_login"><i class="fa fa-plus"></i> Login</a>
+                                                        </li>-->
                             <li> 
-                            <li><a id="btn_login"><i class="fa fa-plus"></i> Login</a></li>
+                                <a href="javascript:void(0)" onclick="doLogin()">Login 2</a>
                             </li>
                             <li> 
-                                <a href="public/doLoginCasRest.action">test seite mit cas gesichert</a>
-                            </li>
-                            <li> 
-                                <a href="cas/logout.jsp/logout.jsp">logout</a>
+                                <a href="javascript:void(0)" onclick="doLogout()">logout</a>
                             </li>
                         </ul>
                     </div>
@@ -46,11 +47,11 @@
                 <!-- Bootstrap 3.3.6 -->
                 <script type="text/javascript" src="js/vendors/bootstrap/js/bootstrap.min.js"></script>
                 <script>
-                    $(document).ready(function () {
-                        $("#btn_login").bind("click", function (event, data) {
-                            doLogin();
-                        });
-                    })
+                                    $(document).ready(function () {
+                                        $("#btn_login").bind("click", function (event, data) {
+                                            doLogin();
+                                        });
+                                    })
                 </script>
                 <script>
 
@@ -67,11 +68,11 @@
 //                                "Access-Control-Allow-Headers: ": "Authorization",
 //                            },
                             success: function (html) {
-                                if ((html == null) || (html.jsonStatus == null) || (html.serviceUrl == null) || (html.jsonStatus.status != "OK")) {
+                                if ((html == null) || (html.jsonStatus == null) || (html.redirectUrl == null) || (html.jsonStatus.status != "OK")) {
                                     alert("ERRROR");
                                     return;
-                                } else if (html.serviceUrl.length > 0) {
-                                    window.location.href=html.serviceUrl;
+                                } else if (html.redirectUrl.length > 0) {
+                                    window.location.href = html.redirectUrl;
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
@@ -83,6 +84,33 @@
 
 
                         });
+
+                        function doLogout() {
+                            $.ajax({
+                                url: "public/doLogoutCasUser.action",
+                                type: "GET",
+                                dataType: 'json',
+                                contentType: "application/x-www-form-urlencoded",
+                                data: "",
+                                success: function (html) {
+                                    if ((html == null) || (html.jsonStatus == null) || (html.redirectUrl == null) || (html.jsonStatus.status != "OK")) {
+                                        alert("ERRROR");
+                                        return;
+                                    } else if (html.redirectUrl.length > 0) {
+                                        window.location.href = html.redirectUrl;
+                                    }
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    alert("Error");
+                                    return;
+                                }
+
+
+
+
+                            });
+                        }
+
                     }
                 </script>
 
