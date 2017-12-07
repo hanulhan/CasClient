@@ -103,7 +103,7 @@
             </activation>
             <properties>
                 <cas.server>https://cas.acentic.com/CasServer</cas.server>
-                <oauth.client>https://localhost:18443</oauth.client>
+                <oauth.client>https://localhost:28443</oauth.client>
             </properties>
         </profile>
         <profile>

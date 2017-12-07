@@ -44,16 +44,21 @@ public class CasRestActions extends ActionSupport implements SessionAware, Appli
     private static final Logger LOGGER = Logger.getLogger(CasRestActions.class);
     private Map<String, Object> session;
 
-//    private final static String CAS_SERVER_URL = "https://cas.acentic.com/CasServer";
-    private final static String CAS_SERVER_URL = "https://dev-cas-server:443/CasServer";
+    private final static String CAS_SERVER_URL = "https://cas.acentic.com/CasServer";
+//    private final static String CAS_SERVER_URL = "https://dev-cas-server:443/CasServer";
 
-//    private final static String GET_URL = "https://acs.acentic.com/CloudServices";
+
+    private final static String GET_URL = "https://acs.acentic.com/CloudServices/public/doLoginCasUserManual.action";
 //    private final static String GET_URL = "https://acs.acentic.com/CloudServices/public/doLoginCasUser.action";
-    //private final static String CAS_SERVICE = "https://de-ws-16:18443/CloudServices/gpns/doAccessSLATyps";
-    private final static String CAS_SERVICE = "https://de-ws-16:18443/CloudServices/gpns/getCircuitTyps.action";
-
-    private final static String GET_URL = "https://de-ws-16:18443/CloudServices/public/doLoginCasUserManual.action";
+//    private final static String GET_URL = "https://de-ws-16:18443/CloudServices/public/doLoginCasUserManual.action";
 //    private final static String GET_URL = "https://de-ws-16:18443/CloudServices";
+    
+    
+    private final static String CAS_SERVICE = "https://acs.acentic.com/CloudServices/core/doShowMain.action";
+//    private final static String CAS_SERVICE = "https://de-ws-16:18443/CloudServices/gpns/doAccessSLATyps";
+//    private final static String CAS_SERVICE = "https://de-ws-16:18443/CloudServices/gpns/getCircuitTyps.action";
+
+
 //    
     private final String USER_AGENT = "Mozilla/5.0";
 
